@@ -1,0 +1,11 @@
+body{
+    background: rgb(46, 41, 41);
+    font: normal 1.1em Arial;
+    color: white
+}
+input{
+    font: normal 1.2em Arial;
+    width: auto;
+    margin-bottom: 1.2em;
+    
+}
