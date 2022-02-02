@@ -4,7 +4,7 @@
 session_start();
  ini_set('max_execution_time',0);    
  date_default_timezone_set("America/Sao_Paulo");
- include 'vendor/autoload.php';
+ 
  include_once "./conexao.php";
 ?>
 <!DOCTYPE html>

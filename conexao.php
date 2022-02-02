@@ -1,14 +1,7 @@
 <?php
     include_once "./banco.php";
     ini_set('max_execution_time',0);
-    /*
-        define("SERVIDOR",'V00319SQL-GCPRD.intracorp.local,60002');
-        define("USER","usr_electroneek");
-        define("PASSWORD","e84ut7f0$5@{=");
-        define("BANCO","RPA_Electroneek");
-    */
-    //$conexao = new PDO("sqlsrv:Database=RPA_Electroneek;server=V00319SQL-GCPRD.intracorp.local,60002;ConnectionPooling=0","usr_electroneek","e84ut7f0$5@{=");
-
+  
     function inserirDados($reconsulta, $UserName, $LoginUser, $NameCliente,	$cpfCnpj, $telContato1,	$telContato2, $telContato3, $telContato4, $VelocidadeDesejada, $CEP, $endereco, $num, $bairro, $cidade, $estado, $tpComplemento1, $complemento1, $tpComplemento2, $complemento2 ,$tpComplemento3, $complemento3, $complemento4, $dtHoraImportacao, $ip_hostname , $idloginfk, $emTratamento, $dtMainling ){
         
         $query ="
@@ -40,7 +33,7 @@
     function Pendentes(){
         $DtImp = date("Y-m-d");
         $query ="
-        select count(id) result from [dbo].[GeositeMailing] where dtImportacao = '".$DtImp."' and statusPreVenda is null";
+        select count(a.idMailingEntrada) as result from [dbo].[mailingEntrada] a inner join [dbo].[mailingBotGeositeViabilidade] b on a.idMailingEntrada = b.idMailingEntradafk where a.dtHoraImportacao >= '$DtImp' and b.statusPreVenda is null";
         
         global $conexao;
         $statement = $conexao->prepare($query);
@@ -55,7 +48,7 @@
         $d=strtotime("-15 days");
         $DtImp = date("Y-m-d", $d);
         $query ="
-        select count(id) result from [dbo].[GeositeMailing] where dtImportacao >= '".$DtImp."' and statusPreVenda is null";
+        select count(a.idMailingEntrada) as result from [dbo].[mailingEntrada] a inner join [dbo].[mailingBotGeositeViabilidade] b on a.idMailingEntrada = b.idMailingEntradafk where a.dtHoraImportacao >= '$DtImp' and b.statusPreVenda is null";
         
         global $conexao;
         $statement = $conexao->prepare($query);
@@ -69,7 +62,7 @@
     function tratados(){
         $DtImp = date("Y-m-d");
         $query ="
-        select count(id) result from [dbo].[GeositeMailing] where statusPreVenda is not null and dtTratativaAutomacao = '".$DtImp."';";
+        select count(a.idMailingEntrada) as result from [dbo].[mailingEntrada] a inner join [dbo].[mailingBotGeositeViabilidade] b on a.idMailingEntrada = b.idMailingEntradafk where b.dtHoraTratativaAutomacao >= '$DtImp' and b.statusPreVenda is not null;";
         
         global $conexao;
         $statement = $conexao->prepare($query);
@@ -83,7 +76,7 @@
     function comViabilidade(){
         $DtImp = date("Y-m-d");
         $query ="
-        select count(id) result from [dbo].[GeositeMailing] where statusPreVenda like '%Viabilidade técnica confirmada%' and dtTratativaAutomacao = '".$DtImp."';";
+        select count(a.idMailingEntrada) as result from [dbo].[mailingEntrada] a inner join [dbo].[mailingBotGeositeViabilidade] b on a.idMailingEntrada = b.idMailingEntradafk where b.dtHoraTratativaAutomacao >= '$DtImp' and b.statusPreVenda like '%Viabilidade técnica confirmada%';";
         
         global $conexao;
         $statement = $conexao->prepare($query);
@@ -98,8 +91,11 @@
     function consultadoUltimos15Dias(){
         $d=strtotime("-15 days");
         $DtImp = date("Y-m-d", $d);
+        // $query ="
+        // select count(id) result from [dbo].[GeositeMailing] where statusPreVenda is not null and dtTratativaAutomacao >= '".$DtImp."';";
+        
         $query ="
-        select count(id) result from [dbo].[GeositeMailing] where statusPreVenda is not null and dtTratativaAutomacao >= '".$DtImp."';";
+        select count(idMailingEntrada) as result from [RPA_Electroneek].[dbo].[mailingEntrada] a inner join [RPA_Electroneek].[dbo].[mailingBotGeositeViabilidade] b on a.idMailingEntrada = b.idMailingEntradafk where a.dtHoraImportacao >= '$DtImp' and b.statusPreVenda is not null;";
         
         
         global $conexao;
@@ -114,7 +110,7 @@
     function ultimaImportacao(){
        
         $query ="
-        select max(dtImportacao) as result from [RPA_Electroneek].[dbo].[GeositeMailing];";
+        select max(dtHoraImportacao) as result from [RPA_Electroneek].[dbo].[mailingEntrada] ;";
         
         
         global $conexao;
@@ -130,7 +126,7 @@
         $d=strtotime("-15 days");
         $DtImp = date("Y-m-d", $d);
         $query ="
-        select count(id) result from [dbo].[GeositeMailing] where statusPreVenda like '%Viabilidade técnica confirmada%' and dtTratativaAutomacao >= '".$DtImp."';";
+        select count(a.idMailingEntrada) as result from [dbo].[mailingEntrada] a inner join [dbo].[mailingBotGeositeViabilidade] b on a.idMailingEntrada = b.idMailingEntradafk where a.dtHoraImportacao >= '$DtImp' and b.statusPreVenda like '%Viabilidade técnica confirmada%';";
         
         
         global $conexao;
@@ -140,6 +136,21 @@
         $resultado = $statement->fetch();
         
         return $resultado['result'];
+    }
+
+    function tempoDeExecucaoEmSegundos(){
+        $DtImp = date("Y-m-d");
+        $query ="
+        SELECT (DATEDIFF(SECOND,(select min(dtHoraTratativaAutomacao) from [dbo].[mailingBotGeositeViabilidade] where dtHoraTratativaAutomacao >= '$DtImp'),(select max(dtHoraTratativaAutomacao) from [dbo].[mailingBotGeositeViabilidade]))) /(select count(a.idMailingEntrada) as result from [dbo].[mailingEntrada] a inner join [dbo].[mailingBotGeositeViabilidade] b on a.idMailingEntrada = b.idMailingEntradafk where b.dtHoraTratativaAutomacao >= '$DtImp' and b.statusPreVenda is not null) as media";
+        
+        
+        global $conexao;
+        $statement = $conexao->prepare($query);
+        $statement->execute();
+
+        $resultado = $statement->fetch();
+        
+        return $resultado['media'];
     }
 
 

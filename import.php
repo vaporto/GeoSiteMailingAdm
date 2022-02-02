@@ -41,7 +41,7 @@ session_start();
 
 //checando se o arquivo existe
 if(isset($_POST['enviar'])){
-    echo "Aguarde...<br/>";
+    $_SESSION['info'] = "Aguarde...<br/>";
     //checando se o arquivo foi enviado
     $arquivo = $_FILES['arquivo'];
     $arquivoNovo = explode('.',$arquivo['name']);
@@ -108,11 +108,7 @@ if(isset($_POST['enviar'])){
 
                 $d=strtotime($row[23]);
                 $dt= date("Y-m-d", $d);
- 
-                
 
-               
-             
                 if($row[0] == 'reconsulta' ){
                     
                 } else{
@@ -124,21 +120,22 @@ if(isset($_POST['enviar'])){
                     }
                     try{
                         
-                        inserirDados($row[0], $row[1], $row[2]  ,$row[3], (int)$row[4], $row[5], $row[6],	$row[7], $row[8], $row[9], $row[10], $row[11], (int)$row[12], $row[13],$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21] ,$row[22],  $newDtImp, $_SERVER["REMOTE_ADDR"], 1, 0, $dt);    
+                        inserirDados($row[0], $_SESSION['nome'], $_SESSION['username'] ,$row[3], (int)$row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], (int)$row[12], $row[13],$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21] ,$row[22],  $newDtImp, $_SERVER["REMOTE_ADDR"], $_SESSION['idLogin'], 0, $dt);    
                     }catch(Exception $e){
                         echo $e;
                     }
                 }
         }
-        echo 'Importação concluída com sucesso <br/>'; 
-        echo 'adicionando informações na FK <br/>'; 
+        
         inserirDadosFK($newDtImp);
-        echo 'Concluído!!!'; 
+        
         
     }
     //deleta o arquivo encaminhado
     unlink('./'.$arquivo['name']);
-    
+    $_SESSION['completo'] = "Concluído!!!";
+    unset( $_SESSION['info']);
+    header("Location: index.php");
 }    
 
 ?>

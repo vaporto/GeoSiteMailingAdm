@@ -4,7 +4,7 @@
     date_default_timezone_set("America/Sao_Paulo");
     include 'vendor/autoload.php';
     include_once "./conexao.php";
-    // include './logon.php';
+
     
     
 
@@ -46,7 +46,7 @@
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
             <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                <input class="btn btn-secondary" type="submit" name="pendenteTratamento" value="Download" />
+                <input class="btn btn-secondary" type="submit" name="naoConsultadosImpHj" value="Download" />
             </form> 
             </div>
         </div>
@@ -58,13 +58,13 @@
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/alerta.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Não consultados ultimos 15 dias</div> <div class="col-12 h1"><?php echo pendenteTratamento15dias();?></div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Não consultados últimos 15 dias</div> <div class="col-12 h1"><?php echo pendenteTratamento15dias();?></div></div>
                         <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
                 <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                    <input class="btn btn-secondary" type="submit" name="pendenteTratamento" value="Download" />
+                    <input class="btn btn-secondary" type="submit" name="naoConsultadosImp15dias" value="Download" />
                 </form>
                 <!-- <button class="btn btn-secondary" type="button">download</button> -->
             </div>
@@ -82,7 +82,7 @@
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
                 <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                    <input class="btn btn-secondary" type="submit" name="pendenteTratamento" value="Download" />
+                    <input class="btn btn-secondary" type="submit" name="consultadosHJ" value="Download" />
                 </form>
             </div>
             </div>
@@ -93,13 +93,13 @@
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/confirmado.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Viabilidade Confirmada consulta realizada dia <?php echo date("d/m/Y")?></div> <div class="col-12 h1"><?php echo comViabilidade();?></div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Viabilidade Confirmada data: <?php echo date("d/m/Y")?></div> <div class="col-12 h1"><?php echo comViabilidade();?></div></div>
                         <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
                 <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                    <input class="btn btn-secondary" type="submit" name="pendenteTratamento" value="Download" />
+                    <input class="btn btn-secondary" type="submit" name="viabilidadeHj" value="Download" />
                 </form>
             </div>
             </div>
@@ -109,13 +109,13 @@
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/checklist.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Consulta ultimos 15 dias </div> <div class="col-12 h1"><?php echo consultadoUltimos15Dias();?></div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Consultados últimos 15 dias </div> <div class="col-12 h1"><?php echo consultadoultimos15Dias();?></div></div>
                         <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
             <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                <input class="btn btn-secondary" type="submit" name="pendenteTratamento" value="Download" />
+                <input class="btn btn-secondary" type="submit" name="consultadoUltimos15Dias" value="Download" />
             </form>
             </div>
             </div>
@@ -132,7 +132,7 @@
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
             <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                <input class="btn btn-secondary" type="submit" name="pendenteTratamento" value="Download" />
+                <input class="btn btn-secondary" type="submit" name="ultimoMailingImportado" value="Download" />
             </form>
             </div>
             </div>
@@ -143,13 +143,13 @@
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/viabilidade.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Viabilidade confirmada ultimos 15 dias</div> <div class="col-12 h1"><?php echo comViabilidadeTotal();?></div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Viabilidade confirmada últimos 15 dias</div> <div class="col-12 h1"><?php echo comViabilidadeTotal();?></div></div>
                         <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
             <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                <input class="btn btn-secondary" type="submit" name="pendenteTratamento" value="Download" />
+                <input class="btn btn-secondary" type="submit" name="viabilidadeUlt15Dias" value="Download" />
             </form>
             </div>
             </div>
@@ -160,14 +160,15 @@
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/geral.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h1 p-2"><div class="col-12 my-4"> </div> <div class="col-12 h5"> </div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4"></div> Tempo médio de execução<div class="col-12 h1"><?php echo tempoDeExecucaoEmSegundos();?> seg</div></div>
                         <!-- <div class="col-5 "><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                  </div>
-            <div class="d-grid gap-2 d-md-block my-3">
-            <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                <input class="btn btn-secondary" type="button" name="pendenteTratamento" value="Download" />
-            </form>
+            <div style="height: 4.35em;">     
+            <!-- <div class="d-grid d-md-block my-3 mb-5 pb-2"> -->
+            <!-- <form name="import" action="" method="post" enctype="multipart/form-data">  
+                <input class="btn btn-secondary" type="button" name="" value="" />
+            </form> -->
             </div>
             </div>
         </div>  

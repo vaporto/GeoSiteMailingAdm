@@ -3,7 +3,7 @@
 
     ini_set('max_execution_time',0);    
     date_default_timezone_set("America/Sao_Paulo");
-    include 'vendor/autoload.php';
+  
     include_once "./conexao.php";
 
     if(isset($_POST['enviar'])) {
@@ -24,7 +24,7 @@
 
             if(empty($resultado['username'])){
                 $query ="
-                insert into [RPA_Electroneek].[dbo].[login] (nome, username, senha, perfil) VALUES ('$nome', '$user', '$senha', '$perfil');";
+                insert into [RPA_Electroneek].[dbo].[login] (nome, username, senha, perfil, ativo, changeLogin) VALUES ('$nome', '$user', '$senha', '$perfil', '1','1');";
                 global $conexao;
                 $statement = $conexao->prepare($query);
                 $statement->execute();

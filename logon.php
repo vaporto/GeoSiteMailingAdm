@@ -2,7 +2,7 @@
     session_start();
     ini_set('max_execution_time',0);    
     date_default_timezone_set("America/Sao_Paulo");
-    include 'vendor/autoload.php';
+   
     include_once "./conexao.php";
 
     $newDtImp = date("Y-m-d H:i:s");
@@ -41,7 +41,7 @@
                 
 
                 $query ="
-                SELECT distinct [idlogin] ,[nome], [username], [senha], [perfil] FROM [RPA_Electroneek].[dbo].[login] where [username] = '$usuario'";
+                SELECT distinct [idlogin] ,[nome], [username], [senha], [perfil], [ativo], [changeLogin] FROM [RPA_Electroneek].[dbo].[login] where [username] = '$usuario'";
                 
                 
                 global $conexao;
@@ -62,8 +62,21 @@
                     $_SESSION['username'] = $resultado['username'];
                     $_SESSION['senha'] = $resultado['senha'];
                     $_SESSION['perfil'] = $resultado['perfil'];
+                    $_SESSION['ativo'] = $resultado['ativo'];
+                    $_SESSION['changeLogin'] = $resultado['changeLogin'];
 
-                    header("Location: index.php");
+                    if($_SESSION['changeLogin'] == '1'){
+                        header("Location: reset.php"); 
+                        exit;
+                    }
+                    if($_SESSION['ativo'] == '0'){
+                        $_SESSION['loginErro'] = "Usuário bloqueado"; 
+                        header("Location: login.php"); 
+                    }else{
+                        header("Location: index.php");
+                    }
+
+                    
                 }else{
                     $_SESSION['loginErro'] = " * Usuário ou senha inválidos"; 
                     header("Location: login.php");

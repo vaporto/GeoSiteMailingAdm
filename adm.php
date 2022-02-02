@@ -1,10 +1,15 @@
 <?php
 
 session_start();
+        if($_SESSION['perfil']!=1){
+            $_SESSION['loginErro'] = " Você não tem permissão para acessar esta página"; 
+            header("Location: login.php");
+        }
+       
 
     ini_set('max_execution_time',0);    
     date_default_timezone_set("America/Sao_Paulo");
-    include 'vendor/autoload.php';
+ 
     include_once "./conexao.php";
 
     $newDtImp = date("Y-m-d H:i:s");
@@ -26,29 +31,10 @@ session_start();
 <body style="background-color: #d3dbee;">
 
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #6a7eee;">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="#">Controle de acesso</a>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            
-              
-            </ul>
-            <form class="d-flex">
-              <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-              <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-            </form>
-          </div>
-        </div>
-    </nav>
+<div class="container">
 
-
-    <div class="container-fluid" >
-    <?php include "./cabecalho.php"; ?>
-        <div class="row ">
+       <?php include "./cabecalho.php"; ?>
+        
 
         
         <div id="Squad">
@@ -108,6 +94,8 @@ session_start();
             
         </div>
     </div>  
+    </div>
+
 
         
 

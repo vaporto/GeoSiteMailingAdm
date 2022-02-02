@@ -23,32 +23,31 @@ session_start();
 
 <body style="background-color: #d3dbee;">
 
-        <div class="container">
-        <?php include "./cabecalho.php"; ?>
-                             <!-- Email input -->
-            <div class="form-outline mb-4">
+<div class="container">
         
-                <form  id="containerNotBts" name="import" action="import.php" method="post" enctype="multipart/form-data">  
-                    <input id="form1Example1" class="form-control" type="file" name="arquivo" value="" />
-                    <input class="btn btn-primary btn-block" type="submit" name="enviar" value="Enviar" />
-                </form>
-                
-            </div>       
-                   
-        </div>    
+<?php include "./cabecalho.php"; ?>
+        
+            
+    <div class="form-outline mb-4">
+
+        <form  id="containerNotBts" name="import" action="import.php" method="post" enctype="multipart/form-data">  
+            <input id="form1Example1" class="form-control" type="file" name="arquivo" value="" />
+            <!-- <input class="btn btn-primary btn-block" type="submit" name="enviar" value="Enviar" /> -->
+            <button id="form1Example1" type="submit" name="enviar" value= "enviar" class="btn btn-primary btn-block">Enviar</button>
+        </form>
+        <!-- <input class="btn btn-primary btn-block" type="submit" name="enviar" value="Enviar" /> -->
+    </div>   
+    <p style="color: #000000;"><strong><?php if(isset($_SESSION['info'])){
+        echo $_SESSION['info'];
+        }unset($_SESSION['info'])?></strong></p>
+    
+    <p style="color: #000000;"><strong><?php if(isset($_SESSION['completo'])){
+        echo $_SESSION['completo'];
+        }unset($_SESSION['completo'])?></strong></p>      
+   
+</div>  
+       
        
 </body>
-
-
-    <!-- <body style="background-color: #d3dbee;">
-        <div id="Squad">
-        <h1 style="color: #000000;">Importação de mailing BOT GeoSite</h1>
-            <form name="import" action="import.php" method="post" enctype="multipart/form-data">  
-                <input  style="color: #000000;" type="file" name="arquivo" value="" />
-                <input style="color: #000000;" type="submit" name="enviar" value="Enviar" />
-            </form>
-        </div>
-
-    </body> -->
 
 </html>   

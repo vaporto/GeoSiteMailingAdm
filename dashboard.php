@@ -1,8 +1,9 @@
 <?php
     session_start();
+    header("Location: dashboard2.php");
     ini_set('max_execution_time',0);    
     date_default_timezone_set("America/Sao_Paulo");
-    include 'vendor/autoload.php';
+    
     include_once "./conexao.php";
 
     $page = $_SERVER['PHP_SELF'];
