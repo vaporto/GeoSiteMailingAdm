@@ -76,38 +76,60 @@ if(isset($_POST['enviar'])){
         $data = $spreadsheet->getActiveSheet()->toArray(); 
 
         foreach($data as $row){
-            $insert_data = array(
-                ':reconsulta'=>$row[0],
-                ':UserName'=>$row[1],
-                ':LoginUser'=>$row[2],
-                ':NameCliente'=>$row[3],
-                ':cpfCnpj'=>(int)$row[4],
-                ':telContato1'=>$row[5],
-                ':telContato2'=>$row[6],
-                ':telContato3'=>$row[7],
-                ':telContato4'=>$row[8],
-                ':VelocidadeDesejada'=>$row[9],
-                ':CEP'=>$row[10],
-                ':endereco'=>$row[11],
-                ':num '=>(int)$row[12],
-                ':bairro '=>$row[13],
-                ':cidade '=>$row[14],
-                ':estado '=>$row[15],
-                ':tpComplemento1 '=>$row[16],
-                ':complemento1 '=>$row[17],
-                ':tpComplemento2 '=>$row[18],
-                ':complemento2 '=>$row[19],
-                ':tpComplemento3 '=>$row[20],
-                ':complemento3 '=>$row[21],
-                ':complemento4 '=>$row[22],
-                ':dtMailing' => $row[23]
-            );
+            // $insert_data = array(
+            //     ':reconsulta'=>$row[0],
+            //     ':UserName'=>$row[1],
+            //     ':LoginUser'=>$row[2],
+            //     ':NameCliente'=>$row[3],
+            //     ':cpfCnpj'=>(int)$row[4],
+            //     ':telContato1'=>$row[5],
+            //     ':telContato2'=>$row[6],
+            //     ':telContato3'=>$row[7],
+            //     ':telContato4'=>$row[8],
+            //     ':VelocidadeDesejada'=>$row[9],
+            //     ':CEP'=>$row[10],
+            //     ':endereco'=>$row[11],
+            //     ':num '=>(int)$row[12],
+            //     ':bairro '=>$row[13],
+            //     ':cidade '=>$row[14],
+            //     ':estado '=>$row[15],
+            //     ':tpComplemento1 '=>$row[16],
+            //     ':complemento1 '=>$row[17],
+            //     ':tpComplemento2 '=>$row[18],
+            //     ':complemento2 '=>$row[19],
+            //     ':tpComplemento3 '=>$row[20],
+            //     ':complemento3 '=>$row[21],
+            //     ':complemento4 '=>$row[22],
+            //     ':dtMailing' => $row[23],
+            //     ':interesse' =>$row[24],
+            //     ':dtNascimento' =>$row[25],
+            //     ':sexo' =>$row[26],
+            //     ':nomeMae' =>$row[27],
+            //     ':email' =>$row[28],
+            //     ':estadoCivil' =>$row[29],
+            //     ':TipoDocumento' =>$row[30],
+            //     ':numDoc' =>$row[31],
+            //     ':orgaoEmissor' =>$row[32],
+            //     ':ocupacao' =>$row[33],
+            //     ':profissao' =>$row[34],
+            //     ':dtAdmissao' =>$row[35],
+            //     ':rendaMensal' =>$row[36], 
+            // );
 
+            
+        
                 $row[4] = str_replace('.','',$row[4]);
                 $row[4] = str_replace('-','',$row[4]);
 
                 $d=strtotime($row[23]);
                 $dt= date("Y-m-d", $d);
+
+                $dtn=strtotime($row[25]);
+                $dtNasc= date("Y-m-d", $dtn);
+
+                $dtA=strtotime($row[35]);
+                $dtAdmss= date("Y-m-d", $dtA);
+
 
                 if($row[0] == 'reconsulta' ){
                     
@@ -120,14 +142,17 @@ if(isset($_POST['enviar'])){
                     }
                     try{
                         
-                        inserirDados($row[0], $_SESSION['nome'], $_SESSION['username'] ,$row[3], (int)$row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], (int)$row[12], $row[13],$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21] ,$row[22],  $newDtImp, $_SERVER["REMOTE_ADDR"], $_SESSION['idLogin'], 0, $dt);    
+                        echo inserirDados($row[0], $_SESSION['nome'], $_SESSION['username'] ,$row[3], (int)$row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], (int)$row[12], $row[13],$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21] ,$row[22],  $newDtImp, $_SERVER["REMOTE_ADDR"], $_SESSION['idLogin'], 0, $dt, $row[24],$dtNasc,$row[26],	$row[27],	$row[28], $row[29],	$row[30], $row[31],	$row[32], $row[33],	$row[34], $dtAdmss,	(double)$row[36]);    
+                        $_SESSION['completo'] = "Em andamento!";
                     }catch(Exception $e){
                         echo $e;
+                        $_SESSION['completo'] = "Erro!!!";
                     }
                 }
         }
         
         inserirDadosFK($newDtImp);
+        inserirDadosAnaliseCreditoFK($newDtImp);
         
         
     }

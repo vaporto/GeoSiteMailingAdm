@@ -9,7 +9,8 @@
     
 
     $page = $_SERVER['PHP_SELF'];
-    $sec = "59";
+    $sec = "30";
+    header("Refresh: $sec; url=$page");
     
 ?>
 
@@ -39,39 +40,39 @@
             <div class="m-1 text-center border border-primary rounded-3 " style=" background-color: rgb(255, 255, 255);">
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
-                        <div class="col-5 text-center"><img src="img/negativo.jpg" width="50px"alt=""></div>
+                        <div class="col-5 text-center"><img src="img/alerta.jpg" width="50px"alt=""></div>
                     </div>
-                    <div class="col-12 col-sm-col-12 h5 m p-2"><div class="col-12 my-2">Não Consultado importado dia <?php echo date("d/m/Y")?></div> <div class="col-12 h1"><?php echo Pendentes();?></div></div>
+                    <div class="col-12 col-sm-col-12 h5 m p-2"><div class="col-12 my-2">Importados dia <?php echo date("d/m/Y")?></div> <div class="col-12 h1"><?php echo importadosHj();?></div></div>
                     <!-- <div class="col-5 "><img src="img/686317.png" width="50px"alt=""></div> -->
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
             <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                <input class="btn btn-secondary" type="submit" name="naoConsultadosImpHj" value="Download" />
+                <input class="btn btn-secondary" type="submit" name="importadosHj" value="Download" />
             </form> 
             </div>
         </div>
         </div>  
 
-        <div class="  col-sm-12 col-xl-3 p-0  " >
+        <div class="  col-sm-12 col-xl-2 p-0  " >
             <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
             
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/alerta.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Não consultados últimos 15 dias</div> <div class="col-12 h1"><?php echo pendenteTratamento15dias();?></div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Não consultados dia <?php echo date("d/m/Y")?></div> <div class="col-12 h1"><?php echo naoConsultadosHj();?></div></div>
                         <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                 </div>
             <div class="d-grid gap-2 d-md-block my-3">
                 <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
-                    <input class="btn btn-secondary" type="submit" name="naoConsultadosImp15dias" value="Download" />
+                    <input class="btn btn-secondary" type="submit" name="naoConsultadosHj" value="Download" />
                 </form>
                 <!-- <button class="btn btn-secondary" type="button">download</button> -->
             </div>
         </div>
         </div>  
 
-        <div class="  col-sm-12 col-xl-3 p-0  " >
+        <div class="  col-sm-12 col-xl-2 p-0  " >
             <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
@@ -86,14 +87,29 @@
                 </form>
             </div>
             </div>
-        </div>  
+        </div>
+        
+        <div class="  col-sm-12 col-xl-2 p-0  " >
+            <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
+                <div class="row  d-flex align-items-center text-center " style="height: 200px;">
+                    <div class="row justify-content-center my-1 mt-3">
+                        <div class="col-5 text-center"><img src="img/geral.jpg" width="50px"alt=""></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4"></div> Tempo médio de execução<div class="col-12 h1"><?php echo tempoDeExecucaoEmSegundos();?> seg</div></div>
+                        <!-- <div class="col-5 "><img src="img/686317.png" width="50px"alt=""></div> -->
+                    </div>
+                 </div>
+            <div style="height: 4.35em;">     
+           
+            </div>
+            </div>
+        </div>
 
         <div class="  col-sm-12 col-xl-3 p-0  " >
             <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/confirmado.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Viabilidade Confirmada data: <?php echo date("d/m/Y")?></div> <div class="col-12 h1"><?php echo comViabilidade();?></div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Viabilidade confirmada data: <?php echo date("d/m/Y")?></div> <div class="col-12 h1"><?php echo comViabilidade();?></div></div>
                         <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                 </div>
@@ -103,8 +119,30 @@
                 </form>
             </div>
             </div>
+        </div>
+        </div>
+    </div>  
+    <div class="container-fluid" >  
+        <div class="row">
+
+        <div class="  col-sm-12 col-xl-2 p-0  " >
+            <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
+                <div class="row  d-flex align-items-center text-center " style="height: 200px;">
+                    <div class="row justify-content-center my-1 mt-3">
+                        <div class="col-5 text-center"><img src="img/checklist.jpg" width="50px"alt=""></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Backlog</div> <div class="col-12 h1"><?php echo backlog();?></div></div>
+                        <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
+                    </div>
+                </div>
+            <div class="d-grid gap-2 d-md-block my-3">
+            <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
+                <input class="btn btn-secondary" type="submit" name="backlog" value="Download" />
+            </form>
+            </div>
+            </div>
         </div>  
-        <div class="  col-sm-12 col-xl-3 p-0  " >
+
+        <div class="  col-sm-12 col-xl-2 p-0  " >
             <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
@@ -121,12 +159,12 @@
             </div>
         </div>  
 
-        <div class="  col-sm-12 col-xl-3 p-0  " >
+        <div class="  col-sm-12 col-xl-2 p-0  " >
             <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/atualizacao.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h5 p-2"><div class="col-12 my-4" >Ultima importação em : </div> <div class="col-12 h1"><?php $d=strtotime(ultimaImportacao());echo date("d/m/Y", $d);?></div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4" >Última importação em: <?php $d=strtotime(ultimaImportacao());echo date("d/m/Y", $d);?> </div> <div class="col-12 h1"><?php echo countUltimaImportacao() ?></div></div>
                         <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                 </div>
@@ -138,7 +176,7 @@
             </div>
         </div>  
 
-        <div class="  col-sm-12 col-xl-3 p-0  " >
+        <div class="  col-sm-12 col-xl-2 p-0  " >
             <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
@@ -155,23 +193,39 @@
             </div>
         </div>  
 
-        <div class="  col-sm-12 col-xl-3 p-0  " >
+          
+
+        <div class="  col-sm-12 col-xl-2 p-0  " >
+            <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
+                <div class="row  d-flex align-items-center text-center " style="height: 200px;">
+                    <div class="row justify-content-center my-1 mt-3">
+                        <div class="col-5 text-center"><img src="img/viabilidade.jpg" width="50px"alt=""></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4">Prioridade reconsulta</div> <div class="col-12 h1"><?php echo prioridadeReconsulta();?></div></div>
+                        <!-- <div class="col-5"><img src="img/686317.png" width="50px"alt=""></div> -->
+                    </div>
+                </div>
+            <div class="d-grid gap-2 d-md-block my-3">
+            <form name="import" action="download.php" method="post" enctype="multipart/form-data">  
+                <input class="btn btn-secondary" type="submit" name="prioridadeReconsulta" value="Download" />
+            </form>
+            </div>
+            </div>
+        </div>  
+
+        <div class="  col-sm-12 col-xl-2 p-0  " >
             <div class="m-1 text-center border border-primary rounded-3" style=" background-color: rgb(255, 255, 255);">
                 <div class="row  d-flex align-items-center text-center " style="height: 200px;">
                     <div class="row justify-content-center my-1 mt-3">
                         <div class="col-5 text-center"><img src="img/geral.jpg" width="50px"alt=""></div>
-                        <div class="col-12 h5 p-2"><div class="col-12 my-4"></div> Tempo médio de execução<div class="col-12 h1"><?php echo tempoDeExecucaoEmSegundos();?> seg</div></div>
+                        <div class="col-12 h5 p-2"><div class="col-12 my-4"></div> Tempo médio de execução última execução<div class="col-12 h1"><?php echo tempoDeExecucaoEmSegundos();?> seg</div></div>
                         <!-- <div class="col-5 "><img src="img/686317.png" width="50px"alt=""></div> -->
                     </div>
                  </div>
             <div style="height: 4.35em;">     
-            <!-- <div class="d-grid d-md-block my-3 mb-5 pb-2"> -->
-            <!-- <form name="import" action="" method="post" enctype="multipart/form-data">  
-                <input class="btn btn-secondary" type="button" name="" value="" />
-            </form> -->
+           
             </div>
             </div>
-        </div>  
+        </div>
 
               
         </div>
